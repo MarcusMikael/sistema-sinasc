@@ -1,9 +1,11 @@
 
 import pandas as pd
+import json
 from sklearn.model_selection import train_test_split
 
 from src.ml.train import carregar_dados, preparar_dados
 from src.ml.predict import carregar_modelo
+from pathlib import Path
 
 
 def calcular_referencias(X_train):
@@ -27,6 +29,24 @@ def calcular_referencias(X_train):
             )
 
     return referencias
+
+
+def carregar_referencias():
+    """Carrega as referências já calculadas no treinamento."""
+
+    raiz_projeto = Path(__file__).resolve().parents[2]
+
+    caminho = (
+        raiz_projeto
+        / "models"
+        / "referencias_explicabilidade.json"
+    )
+
+    with open(caminho, "r", encoding="utf-8") as arquivo:
+        referencias = json.load(arquivo)
+
+    return referencias
+
 
 
 def explicar_local(modelo, entrada, referencias):
@@ -77,6 +97,59 @@ def explicar_local(modelo, entrada, referencias):
     }
 
 
+def explicar_predicao(dados):
+    """
+    Gera explicação local para uma entrada do backend,
+    sem carregar o CSV original.
+    """
+
+    from src.ml.predict import predict_one
+
+    # Validar a entrada com as regras já existentes
+    resultado_predicao = predict_one(dados)
+
+    # Carregar o modelo e as referências
+    modelo = carregar_modelo()
+    referencias = carregar_referencias()
+
+    # Normalizar a entrada conforme o schema do modelo
+    from src.ml.predict import (
+        carregar_schema,
+        normalizar_categoria
+    )
+
+    schema = carregar_schema()
+    entrada = pd.DataFrame([dados])
+
+    for coluna, tipo in schema["variaveis"].items():
+        if tipo == "categoria":
+            entrada[coluna] = (
+                entrada[coluna]
+                .map(normalizar_categoria)
+                .astype("object")
+            )
+        else:
+            entrada[coluna] = pd.to_numeric(
+                entrada[coluna],
+                errors="coerce"
+            )
+
+    # Usar a mesma ordem de colunas do schema
+    entrada = entrada[list(schema["variaveis"].keys())]
+
+    explicacao = explicar_local(
+        modelo,
+        entrada,
+        referencias
+    )
+
+    return {
+        "predicao": resultado_predicao,
+        "explicacao_local": explicacao
+    }
+
+
+
 if __name__ == "__main__":
 
     df = carregar_dados()
@@ -93,6 +166,37 @@ if __name__ == "__main__":
     modelo = carregar_modelo()
 
     referencias = calcular_referencias(X_train)
+
+
+    # Salvar valores de referência para o backend
+    raiz_projeto = Path(__file__).resolve().parents[2]
+
+    caminho_referencias = (
+        raiz_projeto
+        / "models"
+        / "referencias_explicabilidade.json"
+    )
+
+    caminho_referencias.parent.mkdir(
+        parents=True,
+        exist_ok=True
+    )
+
+    with open(
+        caminho_referencias,
+        "w",
+        encoding="utf-8"
+    ) as arquivo:
+        json.dump(
+            referencias,
+            arquivo,
+            ensure_ascii=False,
+            indent=4,
+            allow_nan=False
+        )
+
+    print("\nReferências salvas em:", caminho_referencias)
+
 
     # Exemplo utilizando um registro do treinamento
     entrada = X_train.iloc[[0]].copy()

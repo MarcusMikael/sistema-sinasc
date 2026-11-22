@@ -1,0 +1,13 @@
+{
+    "faixa_etaria_mae": "25–29",
+    "estado_civil_mae": "1.0",
+    "escolaridade_mae": "3.0",
+    "tipo_gravidez": "1.0",
+    "qtd_gestacoes": 1.0,
+    "qtd_partos_normais": 0.0,
+    "qtd_partos_cesareas": 0.0,
+    "qtd_filhos_vivos": 1.0,
+    "qtd_filhos_mortos": 0.0,
+    "qtd_consultas_prenatal": 10.0,
+    "mes_inicio_prenatal": 2.0
+}
