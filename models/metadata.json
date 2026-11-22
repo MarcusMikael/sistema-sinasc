@@ -1,0 +1,16 @@
+{
+    "nome": "Modelo de previsão de baixo peso ao nascer",
+    "versao": "1.0.0",
+    "algoritmo": "HistGradientBoostingClassifier",
+    "dataset": "SINASC 2024",
+    "registros_treinamento": 96628,
+    "quantidade_variaveis": 11,
+    "metricas_validacao_cruzada": {
+        "pr_auc": 0.3593,
+        "recall": 0.5667,
+        "f2_score": 0.4411
+    },
+    "limiar_classificacao": null,
+    "calibracao": "pendente",
+    "status": "candidato"
+}

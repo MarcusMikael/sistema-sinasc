@@ -1,0 +1,28 @@
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Arquivos temporários do Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Configurações sensíveis
+.env
+.env.*
+!.env.example
+secrets.toml
+
+# Base original do SINASC
+data/raw/
+
+# Arquivos temporários
+*.log
+.DS_Store
+Thumbs.db
+
+# Configurações locais
+.vscode/
+.idea/

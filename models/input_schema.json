@@ -1,0 +1,91 @@
+{
+    "versao": "1.0.0",
+    "variaveis": {
+        "faixa_etaria_mae": "categoria",
+        "estado_civil_mae": "categoria",
+        "escolaridade_mae": "categoria",
+        "tipo_gravidez": "categoria",
+        "qtd_gestacoes": "numero",
+        "qtd_partos_normais": "numero",
+        "qtd_partos_cesareas": "numero",
+        "qtd_filhos_vivos": "numero",
+        "qtd_filhos_mortos": "numero",
+        "qtd_consultas_prenatal": "numero",
+        "mes_inicio_prenatal": "numero"
+    },
+    "categorias_observadas": {
+        "faixa_etaria_mae": [
+            "10–14",
+            "15–19",
+            "20–24",
+            "25–29",
+            "30–34",
+            "35–39",
+            "40–44",
+            "45–49",
+            ">=50",
+            "ignorado"
+        ],
+        "estado_civil_mae": [
+            "1.0",
+            "2.0",
+            "3.0",
+            "4.0",
+            "5.0",
+            "ignorado"
+        ],
+        "escolaridade_mae": [
+            "0.0",
+            "1.0",
+            "2.0",
+            "3.0",
+            "4.0",
+            "5.0",
+            "ignorado"
+        ],
+        "tipo_gravidez": [
+            "1.0",
+            "2.0",
+            "3.0",
+            "ignorado"
+        ]
+    },
+    "regras_numericas": {
+        "qtd_gestacoes": {
+            "minimo": 0,
+            "inteiro": true,
+            "permite_nulo": true
+        },
+        "qtd_partos_normais": {
+            "minimo": 0,
+            "inteiro": true,
+            "permite_nulo": true
+        },
+        "qtd_partos_cesareas": {
+            "minimo": 0,
+            "inteiro": true,
+            "permite_nulo": true
+        },
+        "qtd_filhos_vivos": {
+            "minimo": 0,
+            "inteiro": true,
+            "permite_nulo": true
+        },
+        "qtd_filhos_mortos": {
+            "minimo": 0,
+            "inteiro": true,
+            "permite_nulo": true
+        },
+        "qtd_consultas_prenatal": {
+            "minimo": 0,
+            "inteiro": true,
+            "permite_nulo": true
+        },
+        "mes_inicio_prenatal": {
+            "minimo": 1,
+            "inteiro": true,
+            "permite_nulo": true,
+            "maximo": 10
+        }
+    }
+}
